@@ -6,6 +6,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 21px;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    background-color: #ffffff;
 }
 .topo ion-icon{
     font-size: 50px;
@@ -27,8 +31,41 @@
     justify-content: space-between;
     width: 414px;
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
+    z-index: 1;
+    background-color: #ffffff;
 }
 
 .footer ion-icon{
     font-size: 25px;
+}
+.batepapo{
+    width: 414px;
+    margin-bottom: 120px;
+}
+
+.usuario{
+    width: 414px;
+    margin-bottom: 4px;
+    display: flex;
+    height: 40px;
+    border-radius: 2px;
+    font-size: 14px;
+    
+    
+}
+
+.usuario div{
+    margin-left: 4px;
+}
+.hora{
+    margin: 4px 4px 8px 9px;
+    color: #aaaaaa;
+}
+
+.from, .destinatario{
+    font-weight: 700;
+}
+
+.status {
+    background-color: #DCDCDC;
 }
