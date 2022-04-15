@@ -6,12 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="reset.css">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,500&display=swap"
+        rel="stylesheet">
     <title>Batepapouol</title>
 </head>
-<body onload="login()">
-    
-    <div class="container2">
+<body>
+    <div class="container1">
+        <img src="/imagens/logo.png" alt="">
+        <input type="text" class="entrada"  placeholder="Digite seu nome">
+        <div class="entrar" onclick="fechamento()">Entrar</div>
+    </div>
+    <div class="container2 fechar">
     <div class="topo">
      <img src="/imagens/logo.png" alt="">
      <ion-icon name="people"></ion-icon>
@@ -19,7 +25,7 @@
     <div class="batepapo">
     </div>
     <div class="footer">
-        <input type="text" class="chat">
+        <input type="text" class="chat"placeholder="Escreva aqui">
         <ion-icon name="paper-plane-outline" onclick="enviarmensagem()"></ion-icon>
 
     </div>

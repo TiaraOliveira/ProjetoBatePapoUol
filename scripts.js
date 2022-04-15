@@ -1,11 +1,18 @@
 let conversas = [];
-let nomeusuario = "";
+let nomeusuario;
 
 
+function fechamento(){
+    const telaentrada = document.querySelector(".container1")
+    telaentrada.classList.add("fechar")
+    const telachat = document.querySelector(".container2")
+    telachat.classList.remove("fechar")
+    setTimeout(login, 2000)
+}
 
 
 function login(){
-    nomeusuario = prompt("Digite se seu nome:");
+    nomeusuario = document.querySelector(".entrada").value
     console.log(nomeusuario)
     const novousuario = {
         name: nomeusuario
@@ -65,7 +72,7 @@ function renderizarconversas(){
                 </div>
             </div>`
             
-        } else{
+        } else if(conversas[i].type == "message"){
         ulConversas.innerHTML += 
         `<div class = "usuario normal">
             <div class="hora">
@@ -83,9 +90,26 @@ function renderizarconversas(){
             </div>
         </div>`
         
-        }
-
-        
+        }else if(conversas[i].type == "private_message"){
+            ulConversas.innerHTML += 
+            `<div class = "usuario reservado">
+                <div class="hora">
+                    (${conversas[i].time})
+                </div>
+                <div class="from">
+                    ${conversas[i].from} 
+                </div>
+                
+                <div class="destinatario">
+                     para ${conversas[i].to}: 
+                </div>
+                <div class="texto">
+                    ${conversas[i].text}
+                </div>
+            </div>`
+         
+            }
+       
     }
 
     const ultimo = ulConversas.lastChild
@@ -108,9 +132,7 @@ function entranasala(){
 function enviarmensagem(){
 
     const mensagem = document.querySelector(".chat").value;
-
-    console.log(mensagem)
-     const novamensagem =  
+    const novamensagem =  
     {
         from: nomeusuario,
         to: "Todos",
@@ -126,8 +148,17 @@ function enviarmensagem(){
 }
 
 setInterval(buscarmensagens, 3000)
+setInterval(manterconexao, 5000)
 
 function erroenvio(){
     alert("usuario saiu da sala")
     window.location.reload()
+}
+
+function manterconexao(){
+    const manterusuario = {
+        name: nomeusuario
+    }
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", manterusuario)
+
 }
