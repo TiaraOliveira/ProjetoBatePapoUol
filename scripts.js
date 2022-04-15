@@ -5,11 +5,23 @@ let nomeusuario;
 function fechamento(){
     const telaentrada = document.querySelector(".container1")
     telaentrada.classList.add("fechar")
-    const telachat = document.querySelector(".container2")
-    telachat.classList.remove("fechar")
-    setTimeout(login, 2000)
+    load();
 }
 
+
+function load(){
+    const telaloading = document.querySelector(".container3")
+    telaloading.classList.remove("fechar")
+    setTimeout(entrachat, 2000)
+}
+
+function entrachat(){
+    const telaloading = document.querySelector(".container3")
+    telaloading.classList.add("fechar")
+    const telachat = document.querySelector(".container2")
+    telachat.classList.remove("fechar")
+    login()
+}
 
 function login(){
     nomeusuario = document.querySelector(".entrada").value

@@ -4,7 +4,7 @@ body{
 
 
 .topo{
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.05);
     height: 80px;
     width: 100%;
     display: flex;
@@ -18,6 +18,7 @@ body{
 }
 .topo ion-icon{
     font-size: 50px;
+    margin-right: 40px;
 }
 .topo img{
     width: 75px;
@@ -33,7 +34,7 @@ body{
     padding: 18px;
     display: flex;
     align-items: center;
-    
+    justify-content: space-between;
     width: 100%;
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
     z-index: 1;
@@ -42,11 +43,13 @@ body{
 
 .footer ion-icon{
     font-size: 25px;
+    margin-right: 40px;
 }
 .batepapo{
     width: 100%;
     margin-bottom: 120px;
     flex-wrap: wrap;
+    
 }
 
 .usuario{
@@ -93,19 +96,17 @@ body{
     width: 100%;
 }
 
-
-.fechar{
-    display: none;
-}
-
-
-.container1{
+.container1, .container3{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.container1 img{
+.fechar{
+    display: none;
+}
+
+.container1 img, .container3 img{
     width: 130px;
     margin-top: 72px ;
     margin-bottom: 50px;
