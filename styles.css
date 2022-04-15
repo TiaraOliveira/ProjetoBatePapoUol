@@ -1,7 +1,7 @@
 .topo{
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
     height: 80px;
-    width: 414px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,7 +29,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 414px;
+    width: 100%;
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
     z-index: 1;
     background-color: #ffffff;
@@ -39,18 +39,20 @@
     font-size: 25px;
 }
 .batepapo{
-    width: 414px;
+    width: 100%;
     margin-bottom: 120px;
+    flex-wrap: wrap;
 }
 
 .usuario{
-    width: 414px;
+    width: 100%;
     margin-bottom: 4px;
     display: flex;
     height: 40px;
     border-radius: 2px;
     font-size: 14px;
-    
+    flex-wrap: wrap;
+    word-wrap:break-word;
     
 }
 
@@ -68,4 +70,13 @@
 
 .status {
     background-color: #DCDCDC;
+}
+
+.texto{
+    flex-wrap: wrap;
+    word-wrap: break-word;
+}
+
+.container1 img{
+    width: 130px;
 }

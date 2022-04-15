@@ -1,6 +1,9 @@
 let conversas = [];
 let nomeusuario = "";
 
+
+
+
 function login(){
     nomeusuario = prompt("Digite se seu nome:");
     console.log(nomeusuario)
@@ -11,6 +14,11 @@ function login(){
     promise.then(buscarmensagens)
     promise.catch(verificanome)
 }
+
+
+
+
+
 
 function verificanome(error){
     console.log(error.response)
@@ -79,6 +87,10 @@ function renderizarconversas(){
 
         
     }
+
+    const ultimo = ulConversas.lastChild
+    console.log(`ultimo :${ultimo}`)
+    ultimo.scrollIntoView();
 }
 
 
@@ -109,6 +121,13 @@ function enviarmensagem(){
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novamensagem)
 
     promise.then(buscarmensagens)
-    novamensagem.scrollIntoView(); 
+    promise.catch(erroenvio)
+   
 }
 
+setInterval(buscarmensagens, 3000)
+
+function erroenvio(){
+    alert("usuario saiu da sala")
+    window.location.reload()
+}
