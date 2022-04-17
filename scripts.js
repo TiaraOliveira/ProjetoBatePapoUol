@@ -34,18 +34,12 @@ function login(){
     promise.catch(verificanome)
 }
 
-
-
-
-
-
 function verificanome(error){
     console.log(error.response)
     if (error.response.status === 400) {
       alert("Esse usuario ja existe!Digite outro nome");
-      login();
+      window.location.reload()
     }
-   
 }
 
 
@@ -121,7 +115,6 @@ function renderizarconversas(){
             </div>`
          
             }
-       
     }
 
     const ultimo = ulConversas.lastChild
@@ -161,6 +154,7 @@ function enviarmensagem(){
 
 setInterval(buscarmensagens, 3000)
 setInterval(manterconexao, 5000)
+setInterval(carregarparticipantes1,3000)
 
 function erroenvio(){
     alert("usuario saiu da sala")
@@ -173,4 +167,51 @@ function manterconexao(){
     }
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", manterusuario)
 
+}
+
+function participante() {
+    const telachat = document.querySelector(".telaprincipal")
+    telachat.classList.add("opacidade")
+    pessoa()
+}
+
+function pessoa(){
+    const telaparticipantes = document.querySelector(".container4")
+    telaparticipantes.classList.remove("fechar")
+    carregarparticipantes1()
+}
+
+function carregarparticipantes1(){
+
+    const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants") 
+    promise.then(carregarparticipantes2);
+}
+
+function carregarparticipantes2(response){
+    
+    participantes = response.data;
+    renderizarparticipantes();
+}
+
+
+
+function renderizarparticipantes(){
+    const ulParticipantes = document.querySelector(".escolha");
+    ulParticipantes.innerHTML = "";
+
+    for (let i = 0; i < participantes.length; i++) {
+        
+            ulParticipantes.innerHTML += 
+
+            `<div class="cada" onclick ="escolhido()"><div><ion-icon name="person-circle-outline"></ion-icon>${participantes[i].name}</div>
+            <ion-icon name="checkmark" class="choise"></ion-icon></div>
+            `
+    }
+}
+
+function escolhido(elemento){
+    console.log(elemento)
+    const telaparticipantes = document.querySelector(".container4")
+    telaparticipantes.classList.add("fechar")
+    elemento.classList.add("aparecer")
 }

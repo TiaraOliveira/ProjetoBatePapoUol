@@ -3,6 +3,10 @@ body{
 }
 
 
+.opacidade{
+    opacity: 0,1;
+}
+
 .topo{
     box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.05);
     height: 80px;
@@ -52,6 +56,12 @@ body{
     
 }
 
+
+.container2{
+    width: 100%;
+    background-color: #ececec ;
+}
+
 .usuario{
     width: 100%;
     margin-bottom: 4px;
@@ -92,9 +102,7 @@ body{
     word-wrap: break-word;
 }
 
-.container2{
-    width: 100%;
-}
+
 
 .container1, .container3{
     display: flex;
@@ -133,9 +141,11 @@ body{
     justify-content: center;
 
 }
-
+.normal{
+    background-color: #ffffff;
+}
 .reservado{
-    background-color: pink;
+    background-color:#FFDEDE;
 }
 
 .chat{
@@ -154,4 +164,57 @@ textarea:focus, input:focus{
 .entrada{
     border: 1px solid #D7D7D7;
     border-radius: 9px;
+}
+
+.container4{
+    background-color: #ffffff;
+    height: 100%;
+    width: 259px;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+.escolha, .container4 span{
+    font-size: 16px;
+    font-weight: 400;
+    
+}
+
+.cada, .todos{
+    display: flex;
+    justify-content: space-between;
+    height: 26px;
+    width: 194px;
+    margin-left: 20px;
+}
+
+.cada ion-icon{
+    margin-right: 5px;
+}
+
+.ecolhacontato{
+    height: 84px;
+    width: 220px;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
+    
+}
+.escolhavisibilidade{
+    margin-top: 20px;
+    padding-left: 20px;
+}
+
+.choise{
+    font-size: 20px;
+    color: #28BB25;
+    opacity: 0;
+}
+.aparecer{
+    opacity: 1;
 }
