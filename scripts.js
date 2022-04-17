@@ -1,5 +1,7 @@
 let conversas = [];
 let nomeusuario;
+let participantes = []
+let amigo = ""
 
 
 function fechamento(){
@@ -97,29 +99,61 @@ function renderizarconversas(){
         </div>`
         
         }else if(conversas[i].type == "private_message"){
-            ulConversas.innerHTML += 
-            `<div class = "usuario reservado">
-                <div class="hora">
-                    (${conversas[i].time})
-                </div>
-                <div class="from">
-                    ${conversas[i].from} 
-                </div>
+            const destinatario = conversas[i].to
+                      
+            if (destinatario.indexOf(participantes) === -1) {
+                ulConversas.innerHTML += 
+                `<div class = "usuario normal">
+                    <div class="hora">
+                        (${conversas[i].time})
+                    </div>
+                    <div class="from">
+                        ${conversas[i].from} 
+                    </div>
+                    
+                    <div class="destinatario">
+                         para ${conversas[i].to}: 
+                    </div>
+                    <div class="texto">
+                        ${conversas[i].text}
+                    </div>
+                </div>`
                 
-                <div class="destinatario">
-                     para ${conversas[i].to}: 
-                </div>
-                <div class="texto">
-                    ${conversas[i].text}
-                </div>
-            </div>`
-         
-            }
+            } else if (destinatario.indexOf(participantes) > -1) {
+                ulConversas.innerHTML += 
+                    `<div class = "usuario reservado">
+                        <div class="hora">
+                            (${conversas[i].time})
+                        </div>
+                        <div class="from">
+                            ${conversas[i].from} 
+                        </div>
+                        
+                        <div class="destinatario">
+                             para ${conversas[i].to}: 
+                        </div>
+                        <div class="texto">
+                            ${conversas[i].text}
+                        </div>
+                    </div>`
+           }
     }
+}
+
 
     const ultimo = ulConversas.lastChild
     console.log(`ultimo :${ultimo}`)
     ultimo.scrollIntoView();
+}
+
+function carregarparticipanteschatonline(){
+
+    const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants") 
+    promise.then(carregarparticipanteschat);
+}
+
+function carregarparticipanteschat(response){
+       participantes = response.data;
 }
 
 
@@ -137,6 +171,16 @@ function entranasala(){
 function enviarmensagem(){
 
     const mensagem = document.querySelector(".chat").value;
+
+    if (amigo = ""){
+        const novamensagem =  
+    {
+        from: nomeusuario,
+        to: amigo,
+        text: mensagem,
+        type: "private-message" // ou "private_message" para o bônus
+    }
+    }else{
     const novamensagem =  
     {
         from: nomeusuario,
@@ -144,6 +188,7 @@ function enviarmensagem(){
         text: mensagem,
         type: "message" // ou "private_message" para o bônus
     }
+}
 
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novamensagem)
 
@@ -203,15 +248,20 @@ function renderizarparticipantes(){
         
             ulParticipantes.innerHTML += 
 
-            `<div class="cada" onclick ="escolhido()"><div><ion-icon name="person-circle-outline"></ion-icon>${participantes[i].name}</div>
+            `<div class="cada" onclick ="escolhido(this)"><div><ion-icon name="person-circle-outline"></ion-icon><span>${participantes[i].name}</span></div>
             <ion-icon name="checkmark" class="choise"></ion-icon></div>
             `
     }
 }
 
 function escolhido(elemento){
-    console.log(elemento)
+    elemento.classList.add("aparecer")
+    amigo = elemento.querySelector(".cada span").innerHTML
+    console.log(amigo)
+    setTimeout(tempofechar, 2000)
+}
+
+function tempofechar(){
     const telaparticipantes = document.querySelector(".container4")
     telaparticipantes.classList.add("fechar")
-    elemento.classList.add("aparecer")
 }
