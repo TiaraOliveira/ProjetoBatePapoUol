@@ -176,17 +176,17 @@ function enviarmensagem(){
         const novamensagem =  
     {
         from: nomeusuario,
-        to: amigo,
+        to: "Todos",
         text: mensagem,
-        type: "private-message" // ou "private_message" para o bônus
+        type: "message" // ou "private_message" para o bônus
     }
     }else{
     const novamensagem =  
     {
         from: nomeusuario,
-        to: "Todos",
+        to: amigo,
         text: mensagem,
-        type: "message" // ou "private_message" para o bônus
+        type: "private-message" // ou "private_message" para o bônus
     }
 }
 
