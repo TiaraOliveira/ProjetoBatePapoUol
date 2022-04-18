@@ -89,7 +89,7 @@ function renderizarconversas(){
         </div>`
        }if(conversas[i].type == "private_message"){
             const destinatario = nomeusuario
-            if ((participantes.findIndex(i => i.name === destinatario)) !== -1) {
+            if (conversas[i].from === destinatario || conversas[i].to === destinatario) {
                 ulConversas.innerHTML += 
                 `<div class = "usuario reservado">
                     <div class="hora">
