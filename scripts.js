@@ -2,6 +2,8 @@ let conversas = [];
 let nomeusuario;
 let participantes = []
 let amigo = "Todos"
+let paratodos
+let particular
 function fechamento(){
     const telaentrada = document.querySelector(".container1")
     telaentrada.classList.add("fechar")
@@ -191,7 +193,9 @@ function escolhido(elemento){
     elemento.classList.add("aparecer")
     amigo = elemento.querySelector(".cada span").innerHTML
     console.log(amigo)
-    setTimeout(tempofechar, 2000)
+    const telachat = document.querySelector(".telaprincipal")
+    telachat.classList.remove("opacidade")
+    setTimeout(tempofechar, 1000)
 }
 
 function tempofechar(){
