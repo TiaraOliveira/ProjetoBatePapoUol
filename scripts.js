@@ -2,8 +2,7 @@ let conversas = [];
 let nomeusuario;
 let participantes = []
 let amigo = "Todos"
-let paratodos
-let particular
+
 function fechamento(){
     const telaentrada = document.querySelector(".container1")
     telaentrada.classList.add("fechar")
@@ -66,7 +65,7 @@ function renderizarconversas(){
                     (${conversas[i].time})
                 </div>
                 <div class="from">
-                    ${conversas[i].from} 
+                <strong> ${conversas[i].from} </strong>
                 </div>
                 <div class="texto">
                     ${conversas[i].text}
@@ -79,11 +78,11 @@ function renderizarconversas(){
                 (${conversas[i].time})
             </div>
             <div class="from">
-                ${conversas[i].from} 
+            <strong> ${conversas[i].from} </strong>
             </div>
             
             <div class="destinatario">
-                 para ${conversas[i].to}: 
+                 para &nbsp <strong> ${conversas[i].to}: </strong>
             </div>
             <div class="texto">
                 ${conversas[i].text}
@@ -98,11 +97,11 @@ function renderizarconversas(){
                         (${conversas[i].time})
                     </div>
                     <div class="from">
-                        ${conversas[i].from} 
+                    <strong>${conversas[i].from} </strong>
                     </div>
                     
                     <div class="destinatario">
-                         para ${conversas[i].to}: 
+                         reservadamente para &nbsp <strong>${conversas[i].to}: </strong>
                     </div>
                     <div class="texto">
                         ${conversas[i].text}
@@ -115,11 +114,11 @@ function renderizarconversas(){
                             (${conversas[i].time})
                         </div>
                         <div class="from">
-                            ${conversas[i].from} 
+                        <strong>${conversas[i].from} </strong>
                         </div>
                         
                         <div class="destinatario">
-                             para ${conversas[i].to}: 
+                            reservadamente para &nbsp <strong>${conversas[i].to}: </strong>
                         </div>
                         <div class="texto">
                             ${conversas[i].text}
@@ -149,7 +148,6 @@ function entranasala(){
 }
 function erroenvio(){
     alert("usuario saiu da sala")
-    window.location.reload()
 }
 function manterconexao(){
     const manterusuario = {
@@ -228,6 +226,8 @@ function enviarmensagem(){
 }
 function todos(){
     amigo = "Todos"
+    const telachat = document.querySelector(".telaprincipal")
+    telachat.classList.remove("opacidade")
     tempofechar()
 }
 function limpamensagem(){
