@@ -1,23 +1,17 @@
 let conversas = [];
 let nomeusuario;
 let participantes = []
-let amigo = ""
-let novamensagem;
-
-
+let amigo = "Todos"
 function fechamento(){
     const telaentrada = document.querySelector(".container1")
     telaentrada.classList.add("fechar")
     load();
 }
-
-
 function load(){
     const telaloading = document.querySelector(".container3")
     telaloading.classList.remove("fechar")
     setTimeout(entrachat, 2000)
 }
-
 function entrachat(){
     const telaloading = document.querySelector(".container3")
     telaloading.classList.add("fechar")
@@ -25,9 +19,9 @@ function entrachat(){
     telachat.classList.remove("fechar")
     login()
 }
-
 function login(){
     nomeusuario = document.querySelector(".entrada").value
+    document.querySelector(".entrada").value = ""
     console.log(nomeusuario)
     const novousuario = {
         name: nomeusuario
@@ -37,14 +31,11 @@ function login(){
     promise.catch(verificanome)
 }
 function verificaSucesso() {
-    alert("sucesso ao cadastrar");
     setInterval(manterconexao, 4000)
-    setInterval(carregarparticipantes1, 3000)
+    setInterval(carregarparticipantes1, 10000)
     setInterval(buscarmensagens, 3000)
     buscarmensagens();
 }
-
-
 function verificanome(error){
     console.log(error.response)
     if (error.response.status === 400) {
@@ -57,19 +48,14 @@ function buscarmensagens(){
     console.log(promise)
     promise.then(carregarconversas);
 }
-
 function carregarconversas(response){
     console.log(response)
     conversas = response.data;
     renderizarconversas();
 }
-
-
-
 function renderizarconversas(){
     const ulConversas = document.querySelector(".batepapo");
     ulConversas.innerHTML = "";
-
     for (let i = 0; i < conversas.length; i++) {
         if (conversas[i].type == "status"){
             ulConversas.innerHTML += 
@@ -84,7 +70,7 @@ function renderizarconversas(){
                     ${conversas[i].text}
                 </div>
             </div>`
-        } else if(conversas[i].type == "message"){
+        }if(conversas[i].type == "message"){
         ulConversas.innerHTML += 
         `<div class = "usuario normal">
             <div class="hora">
@@ -101,13 +87,11 @@ function renderizarconversas(){
                 ${conversas[i].text}
             </div>
         </div>`
-        
-        }else if(conversas[i].type == "private_message"){
+       }if(conversas[i].type == "private_message"){
             const destinatario = nomeusuario
-            
-            if (participantes.findIndex(i => i.name === destinatario) === -1) {
+            if ((participantes.findIndex(i => i.name === destinatario)) !== -1) {
                 ulConversas.innerHTML += 
-                `<div class = "usuario normal">
+                `<div class = "usuario reservado">
                     <div class="hora">
                         (${conversas[i].time})
                     </div>
@@ -122,9 +106,9 @@ function renderizarconversas(){
                         ${conversas[i].text}
                     </div>
                 </div>`
-            } else if (destinatario.indexOf(participantes) > -1) {
+            } else{
                 ulConversas.innerHTML += 
-                    `<div class = "usuario reservado">
+                    `<div class = "usuario normal">
                         <div class="hora">
                             (${conversas[i].time})
                         </div>
@@ -146,19 +130,14 @@ function renderizarconversas(){
     console.log(`ultimo :${ultimo}`)
     ultimo.scrollIntoView();
 }
-
 function carregarparticipanteschatonline(){
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants") 
     promise.then(carregarparticipanteschat);
 }
-
 function carregarparticipanteschat(response){
        participantes = response.data;
 }
-
-
 function entranasala(){
-
     const entra = {
         name: nomeusuario
     }
@@ -170,21 +149,17 @@ function erroenvio(){
     alert("usuario saiu da sala")
     window.location.reload()
 }
-
 function manterconexao(){
     const manterusuario = {
         name: nomeusuario
     }
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", manterusuario)
-
 }
-
 function participante() {
     const telachat = document.querySelector(".telaprincipal")
     telachat.classList.add("opacidade")
     pessoa()
 }
-
 function pessoa(){
     const telaparticipantes = document.querySelector(".container4")
     telaparticipantes.classList.remove("fechar")
@@ -192,19 +167,13 @@ function pessoa(){
 }
 
 function carregarparticipantes1(){
-
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants") 
     promise.then(carregarparticipantes2);
 }
-
 function carregarparticipantes2(response){
-    
     participantes = response.data;
     renderizarparticipantes();
 }
-
-
-
 function renderizarparticipantes(){
     const ulParticipantes = document.querySelector(".escolha");
     ulParticipantes.innerHTML = "";
@@ -218,7 +187,6 @@ function renderizarparticipantes(){
             `
     }
 }
-
 function escolhido(elemento){
     elemento.classList.add("aparecer")
     amigo = elemento.querySelector(".cada span").innerHTML
@@ -230,13 +198,10 @@ function tempofechar(){
     const telaparticipantes = document.querySelector(".container4")
     telaparticipantes.classList.add("fechar")
 }
-
-
 function enviarmensagem(){
-
     const mensagem = document.querySelector(".chat").value;
-
-    if (amigo === ""){
+    let novamensagem;
+    if (amigo === "Todos"){
     novamensagem =  
     {
         from: nomeusuario,
@@ -250,13 +215,18 @@ function enviarmensagem(){
         from: nomeusuario,
         to: amigo,
         text: mensagem,
-        type: "private-message" // ou "private_message" para o bônus
+        type: "private_message" 
     }
 }
-
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novamensagem)
-
-    promise.then(buscarmensagens)
+    promise.then(limpamensagem)
     promise.catch(erroenvio)
-   
+}
+function todos(){
+    amigo = "Todos"
+    tempofechar()
+}
+function limpamensagem(){
+    buscarmensagens()
+    document.querySelector(".chat").value = ""
 }
