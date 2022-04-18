@@ -99,7 +99,7 @@ function renderizarconversas(){
         </div>`
         
         }else if(conversas[i].type == "private_message"){
-            const destinatario = conversas[i].to
+            const destinatario = nomeusuario
                       
             if (destinatario.indexOf(participantes) === -1) {
                 ulConversas.innerHTML += 
@@ -168,35 +168,6 @@ function entranasala(){
 }
 
 
-function enviarmensagem(){
-
-    const mensagem = document.querySelector(".chat").value;
-
-    if (amigo = ""){
-        const novamensagem =  
-    {
-        from: nomeusuario,
-        to: "Todos",
-        text: mensagem,
-        type: "message" // ou "private_message" para o bônus
-    }
-    }else{
-    const novamensagem =  
-    {
-        from: nomeusuario,
-        to: amigo,
-        text: mensagem,
-        type: "private-message" // ou "private_message" para o bônus
-    }
-}
-
-    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novamensagem)
-
-    promise.then(buscarmensagens)
-    promise.catch(erroenvio)
-   
-}
-
 setInterval(buscarmensagens, 3000)
 setInterval(manterconexao, 5000)
 setInterval(carregarparticipantes1,3000)
@@ -264,4 +235,34 @@ function escolhido(elemento){
 function tempofechar(){
     const telaparticipantes = document.querySelector(".container4")
     telaparticipantes.classList.add("fechar")
+}
+
+
+function enviarmensagem(){
+
+    const mensagem = document.querySelector(".chat").value;
+
+    if (amigo = ""){
+        const novamensagem =  
+    {
+        from: nomeusuario,
+        to: "Todos",
+        text: mensagem,
+        type: "message" // ou "private_message" para o bônus
+    }
+    }else{
+    const novamensagem =  
+    {
+        from: nomeusuario,
+        to: amigo,
+        text: mensagem,
+        type: "private-message" // ou "private_message" para o bônus
+    }
+}
+
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novamensagem)
+
+    promise.then(buscarmensagens)
+    promise.catch(erroenvio)
+   
 }

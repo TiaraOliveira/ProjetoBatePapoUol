@@ -186,8 +186,10 @@ textarea:focus, input:focus{
     display: flex;
     justify-content: space-between;
     height: 26px;
-    width: 194px;
+    max-width: 194px;
     margin-left: 20px;
+    word-wrap: break-word;
+    
 }
 
 .cada ion-icon{
