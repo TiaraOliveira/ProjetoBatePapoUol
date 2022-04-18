@@ -2,6 +2,7 @@ let conversas = [];
 let nomeusuario;
 let participantes = []
 let amigo = ""
+let novamensagem;
 
 
 function fechamento(){
@@ -32,9 +33,17 @@ function login(){
         name: nomeusuario
     }
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants ", novousuario)
-    promise.then(buscarmensagens)
+    promise.then(verificaSucesso)
     promise.catch(verificanome)
 }
+function verificaSucesso() {
+    alert("sucesso ao cadastrar");
+    setInterval(manterconexao, 4000)
+    setInterval(carregarparticipantes1, 3000)
+    setInterval(buscarmensagens, 3000)
+    buscarmensagens();
+}
+
 
 function verificanome(error){
     console.log(error.response)
@@ -43,10 +52,6 @@ function verificanome(error){
       window.location.reload()
     }
 }
-
-
-buscarmensagens();
-
 function buscarmensagens(){
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
     console.log(promise)
@@ -79,7 +84,6 @@ function renderizarconversas(){
                     ${conversas[i].text}
                 </div>
             </div>`
-            
         } else if(conversas[i].type == "message"){
         ulConversas.innerHTML += 
         `<div class = "usuario normal">
@@ -100,8 +104,8 @@ function renderizarconversas(){
         
         }else if(conversas[i].type == "private_message"){
             const destinatario = nomeusuario
-                      
-            if (destinatario.indexOf(participantes) === -1) {
+            
+            if (participantes.findIndex(i => i.name === destinatario) === -1) {
                 ulConversas.innerHTML += 
                 `<div class = "usuario normal">
                     <div class="hora">
@@ -118,7 +122,6 @@ function renderizarconversas(){
                         ${conversas[i].text}
                     </div>
                 </div>`
-                
             } else if (destinatario.indexOf(participantes) > -1) {
                 ulConversas.innerHTML += 
                     `<div class = "usuario reservado">
@@ -139,15 +142,12 @@ function renderizarconversas(){
            }
     }
 }
-
-
     const ultimo = ulConversas.lastChild
     console.log(`ultimo :${ultimo}`)
     ultimo.scrollIntoView();
 }
 
 function carregarparticipanteschatonline(){
-
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants") 
     promise.then(carregarparticipanteschat);
 }
@@ -166,12 +166,6 @@ function entranasala(){
     console.log(`promise entrada $`)
     promise.then(buscarmensagens)
 }
-
-
-setInterval(buscarmensagens, 3000)
-setInterval(manterconexao, 5000)
-setInterval(carregarparticipantes1,3000)
-
 function erroenvio(){
     alert("usuario saiu da sala")
     window.location.reload()
@@ -242,8 +236,8 @@ function enviarmensagem(){
 
     const mensagem = document.querySelector(".chat").value;
 
-    if (amigo = ""){
-        const novamensagem =  
+    if (amigo === ""){
+    novamensagem =  
     {
         from: nomeusuario,
         to: "Todos",
@@ -251,7 +245,7 @@ function enviarmensagem(){
         type: "message" // ou "private_message" para o bônus
     }
     }else{
-    const novamensagem =  
+    novamensagem =  
     {
         from: nomeusuario,
         to: amigo,
